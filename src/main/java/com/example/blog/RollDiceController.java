@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class RollDiceController {
 
+
+    @GetMapping("/roll")
+    public String viewpage(){
+        return "dice";
+    }
+
     @GetMapping("/roll/{num}")
     public String checknumber(@PathVariable Integer num, Model vmodel){
 

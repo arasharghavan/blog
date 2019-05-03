@@ -34,16 +34,16 @@ public class PostController {
         return "posts/show";
     }
 
-    @GetMapping("/create/create")
+    @GetMapping("/posts/create")
     @ResponseBody
-    public String showcreate(@PathVariable String create) {
-        return "Hello from Spring! ";
+    public String showCreateForm(){
+        return "view the form for creating a post";
     }
 
     @PostMapping("/posts/create")
     @ResponseBody
-    public String hellopost() {
-        return "POST from Spring! ";
+    public String createPost(){
+        return "create a new post";
     }
 
 
