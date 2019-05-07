@@ -1,13 +1,30 @@
 package com.example.blog;
 
-public class Post {
 
+import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.persistence.*;
+
+@Entity @Table(name = "posts")
+public class Post {
+//creating table
+    @Id @GeneratedValue
+    private Long id;
+
+    @Column(nullable = false,length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String body;
 
-    public Post(String title, String body) {
-        this.title = title;
-        this.body = body;
+//geters and seters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -26,3 +43,5 @@ public class Post {
         this.body = body;
     }
 }
+
+//to create the Post table and all the columns and then post repository interface

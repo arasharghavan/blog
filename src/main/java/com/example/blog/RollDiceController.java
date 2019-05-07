@@ -4,32 +4,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
 public class RollDiceController {
+    int dice;
 
-
-    @GetMapping("/roll")
-    public String viewpage(){
-        return "dice";
+    @GetMapping("/roll-dice")
+    public String viewRollDice() {
+        dice = (int) Math.floor(Math.random() * 6) + 1;
+        return "roll-dice";
     }
 
-    @GetMapping("/roll/{num}")
-    public String checknumber(@PathVariable Integer num, Model vmodel){
-
-        int random = (int)(Math.random()*6+1);
-        String result;
-
-       if (random == num){
-          result = "win";
-       }else {
-           result = "lost";
-       }
-       vmodel.addAttribute("random",random);
-       vmodel.addAttribute("passingresult",result);
-       return "dice";
+    @GetMapping("/roll-dice/{n}")
+    public String viewGuessDice(@PathVariable int n, Model model) {
+        model.addAttribute("guess", n);
+        model.addAttribute("dice", dice);
+        return "guess-dice";
     }
-
 }
