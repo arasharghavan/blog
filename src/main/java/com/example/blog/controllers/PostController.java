@@ -1,22 +1,31 @@
-package com.example.blog;
+package com.example.blog.controllers;
 
+import com.example.blog.models.Post;
+import com.example.blog.models.PostImage;
+import com.example.blog.repositories.ImageRepository;
+import com.example.blog.repositories.PostsRepository;
+import com.example.blog.models.User;
+import com.example.blog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class PostController {
 
 
     private final PostsRepository postDao;
+    private final UserRepository userDao;
+    private final ImageRepository imageDao;
 
 //constructor
-    public PostController(PostsRepository postDao){
+    public PostController(PostsRepository postDao,UserRepository userDao,ImageRepository imageDao){
         this.postDao = postDao;
+        this.userDao = userDao;
+        this.imageDao = imageDao;
     }
+
+
 
 //    shows all the posts in the table
     @GetMapping("/posts")
@@ -44,15 +53,29 @@ public class PostController {
 
 //information comes from create.html
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost(@RequestParam String title,@RequestParam String body){
+//    @ResponseBody
+    public String createPost(@RequestParam String title,@RequestParam String body,@RequestParam String url){
+        User user = userDao.findOne(1L);
+
+        PostImage newimage = new PostImage();
+        newimage.setPath(url);
+        imageDao.save(newimage);
+
         Post newPost = new Post();
-        newPost.setTitle(title);
         newPost.setBody(body);
+        newPost.setTitle(title);
         postDao.save(newPost);
-        return "new post created";
+
+//        postDao.save(new Post(title,body,user));
+        return "redirect:/posts";
     }
 
+//    @GetMapping("/posts/{id}/image")
+//    public String image(@PathVariable Long id ,Model vmoel){
+//        Post post = postDao.findOne(id);
+//        vmoel.addAttribute("post",post);
+//        return "posts/addimages";
+//    }
 
     @GetMapping("/posts/{id}/edit")
     public String editform(@PathVariable Long id ,Model vmoel){
@@ -63,13 +86,13 @@ public class PostController {
 
 
     @PostMapping("/posts/{id}/edit")
-    @ResponseBody
+//    @ResponseBody
     public String editpost(@RequestParam String title,@RequestParam String body,@PathVariable Long id){
         Post post = postDao.findOne(id);
         post.setBody(body);
         post.setTitle(title);
         postDao.save(post);
-        return "edit is done";
+        return "redirect:/posts";
 
     }
 
@@ -83,11 +106,11 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/delete")
-    @ResponseBody
+//    @ResponseBody
     public String deletePost(@PathVariable Long id){
        postDao.delete(id);
 
-        return "deleted";
+        return "redirect:/posts";
     }
 
 
