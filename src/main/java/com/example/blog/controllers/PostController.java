@@ -61,8 +61,10 @@ public class PostController {
 //information comes from create.html
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post postToDb,Model vmodel){
-        User user = userDao.findOne(1L);
-
+//        User user = userDao.findOne(1L);
+        postToDb.setUser(userDao.findOne(1L));
+        Post savedpost = postDao.save(postToDb);
+        emailService.prepareAndSend(savedpost,"Post has been created", "The post has been created successfully and you can find it with the ID of " +savedpost.getId());
         postDao.save(postToDb);
         vmodel.addAttribute("postId",postToDb.getId());
         return "posts/addimages";
