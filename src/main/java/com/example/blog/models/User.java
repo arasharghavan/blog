@@ -10,24 +10,32 @@ public class User {
     @Id @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private String usename;
+    @Column(nullable = false,unique = true)
+    private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
 
     @Column(nullable = false)
-    private String passwprd;
+    private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
 
-    public User(String usename, String email, String passwprd, List<Post> posts) {
-        this.usename = usename;
+    public User(String username, String email, String password, List<Post> posts) {
+        this.username = username;
         this.email = email;
-        this.passwprd = passwprd;
+        this.password = password;
         this.posts = posts;
     }
+
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
 
     public User() {
     }
@@ -40,12 +48,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsename() {
-        return usename;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsename(String usename) {
-        this.usename = usename;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -56,12 +64,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPasswprd() {
-        return passwprd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswprd(String passwprd) {
-        this.passwprd = passwprd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Post> getPosts() {

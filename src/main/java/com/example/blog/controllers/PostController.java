@@ -8,6 +8,7 @@ import com.example.blog.repositories.PostsRepository;
 import com.example.blog.models.User;
 import com.example.blog.repositories.UserRepository;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,12 +43,16 @@ public class PostController {
     }
 
 
+//    show one posts
     @GetMapping("/posts/{id}")
     public String showpost(@PathVariable Long id, Model vmodel){
         Post post = postDao.findOne(id);
         vmodel.addAttribute("post",post);
         return "posts/show";
     }
+
+
+//    create post and add image
 
 //this url comes from browser then shows the create.html and from there,
 //    there is a form that its method is post and action of URL:posts.
@@ -61,8 +66,11 @@ public class PostController {
 //information comes from create.html
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post postToDb,Model vmodel){
-//        User user = userDao.findOne(1L);
-        postToDb.setUser(userDao.findOne(1L));
+
+        User sessionuser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User dbuser = userDao.findOne(sessionuser.getId());
+
+        postToDb.setUser(dbuser);
         Post savedpost = postDao.save(postToDb);
         emailService.prepareAndSend(savedpost,"Post has been created", "The post has been created successfully and you can find it with the ID of " +savedpost.getId());
         postDao.save(postToDb);
@@ -70,6 +78,8 @@ public class PostController {
         return "posts/addimages";
     }
 
+
+//    add image
     @GetMapping("/posts/{id}/image")
     public String image(@PathVariable Long id, Model vmodel){
 //        Post postId = postDao.findOne(id);
@@ -91,6 +101,7 @@ public class PostController {
     }
 
 
+//    edit post
     @GetMapping("/posts/{id}/edit")
     public String editform(@PathVariable Long id ,Model vmoel){
         Post post = postDao.findOne(id);
@@ -103,12 +114,14 @@ public class PostController {
 
     public String editpost(@ModelAttribute Post posteToEdit){
 
-        posteToEdit.setUser(userDao.findOne(1L));
+//        posteToEdit.setUser(userDao.findOne(1L));
         postDao.save(posteToEdit);
         return "redirect:/posts";
 
     }
 
+
+//    delete post
     @GetMapping("/posts/{id}/delete")
     public String deleteform(@PathVariable Long id,Model vmodel){
 
