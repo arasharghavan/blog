@@ -6,7 +6,7 @@ import com.example.blog.models.PostImage;
 import com.example.blog.repositories.ImageRepository;
 import com.example.blog.repositories.PostsRepository;
 import com.example.blog.models.User;
-import com.example.blog.repositories.UserRepository;
+import com.example.blog.repositories.UsersRepository;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,12 +21,12 @@ public class PostController {
 
 
     private final PostsRepository postDao;
-    private final UserRepository userDao;
+    private final UsersRepository userDao;
     private final ImageRepository imageDao;
     private EmailService emailService;
 
 //constructor
-    public PostController(PostsRepository postDao,UserRepository userDao,ImageRepository imageDao,EmailService emailService){
+    public PostController(PostsRepository postDao,UsersRepository userDao,ImageRepository imageDao,EmailService emailService){
         this.postDao = postDao;
         this.userDao = userDao;
         this.imageDao = imageDao;

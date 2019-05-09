@@ -1,7 +1,7 @@
 package com.example.blog.controllers;
 
 import com.example.blog.models.User;
-import com.example.blog.repositories.UserRepository;
+import com.example.blog.repositories.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
-    private UserRepository users;
+    private UsersRepository users;
     private PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository user, PasswordEncoder passwordEncoder) {
+    public UserController(UsersRepository user, PasswordEncoder passwordEncoder) {
         this.users = user;
         this.passwordEncoder = passwordEncoder;
     }
