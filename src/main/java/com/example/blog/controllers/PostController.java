@@ -112,9 +112,18 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
 
-    public String editpost(@ModelAttribute Post posteToEdit){
+    public String editpost(@ModelAttribute Post posteToEdit,@PathVariable Long id){
 
-//        posteToEdit.setUser(userDao.findOne(1L));
+
+
+        User sessionuser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User dbuser = userDao.findOne(sessionuser.getId());
+
+
+
+
+
+        posteToEdit.setUser(userDao.findOne(dbuser.getId()));
         postDao.save(posteToEdit);
         return "redirect:/posts";
 
