@@ -1,24 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="UTF-8" />
-    <title>Log In</title>
+    <meta charset="UTF-8"/>
+    <th:block th:replace="fragments/addons :: head('Log In Page')"/>
 </head>
 <body>
-<h1>Log In</h1>
-<div th:if="${param.error}">
-    Invalid Username and Password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
+<div class="container">
 
-<form th:action="@{/login}" method="post">
-    <label for="username">Username</label>
-    <input id="username" name="username" type="text" />
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" />
-    <input type="submit" value="Log In" />
-</form>
+    <th:block th:replace="fragments/addons :: nav"/>
+
+    <div class="alert alert-secondary" role="alert">
+        <h2>Log in...</h2>
+    </div>
+
+
+    <div th:if="${param.error}" class="text-danger">
+        Invalid Username and Password.
+    </div>
+
+    <div th:if="${param.logout}" class="text-warning">
+        You have been logged out.
+    </div>
+
+
+
+    <form th:action="@{/login}" method="POST">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Username</span>
+            </div>
+            <input name="username"  type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon2">Password</span>
+            </div>
+            <input name="password" type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">LOGIN!</button>
+    </form>
+
+    <th:block th:replace="fragments/addons :: footer"/>
+</div>
 </body>
 </html>
+
+
+<!--<form th:action="@{/login}" method="post">-->
+    <!--<label for="username">Username</label>-->
+    <!--<input id="username" name="username" type="text" />-->
+    <!--<label for="password">Password</label>-->
+    <!--<input id="password" name="password" type="password" />-->
+    <!--<input type="submit" value="Log In" />-->

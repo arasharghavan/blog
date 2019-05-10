@@ -1,22 +1,67 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="UTF-8" />
-    <title>Sign up</title>
+    <meta charset="UTF-8"/>
+    <th:block th:replace="fragments/addons :: head('Sign Up Page')"/>
 </head>
 <body>
-<h1>Create an account</h1>
-<form th:action="@{/sign-up}" method="POST" th:object="${user}">
-    <label for="username">Username</label>
-    <input id="username" th:field="*{username}" />
+<div class="container">
 
-    <label for="email">Email</label>
-    <input id="email" th:field="*{email}" />
+    <th:block th:replace="fragments/addons :: nav"/>
 
-    <label for="password">Password</label>
-    <input id="password" type="password" th:field="*{password}" />
+    <div class="alert alert-secondary" role="alert">
+        <h2>Create An Account...</h2>
+    </div>
 
-    <input value="Sign me up!" type="submit" />
-</form>
+    <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Username</span>
+            </div>
+            <input th:field="*{username}" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon2">Password</span>
+            </div>
+            <input th:field="*{password}" type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1"/>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Email</span>
+            </div>
+            <input th:field="*{email}" type="text" class="form-control" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign me up!</button>
+    </form>
+
+    <th:block th:replace="fragments/addons :: footer"/>
+</div>
 </body>
 </html>
+
+
+
+
+
+
+
+<!--<form th:action="@{/sign-up}" method="POST" th:object="${user}">-->
+    <!--<label for="username">Username</label>-->
+    <!--<input id="username" th:field="*{username}" />-->
+
+    <!--<label for="email">Email</label>-->
+    <!--<input id="email" th:field="*{email}" />-->
+
+    <!--<label for="password">Password</label>-->
+    <!--<input id="password" type="password" th:field="*{password}" />-->
+
+    <!--<input value="Sign me up!" type="submit" />-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->

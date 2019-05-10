@@ -1,15 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <th:block th:replace="fragments/addons :: head('Show Page')"/>
 </head>
 <body>
-    <p th:text="${post.title}"></p>
-    <p th:text="${post.body}"></p>
-    <!--<p th:text="${post.user.email}"></p>-->
-    <br/>
-    <img width="300" height="300" th:each="image : ${post.postImages}" th:src="${image.path}" alt="img"/>
+<div class="container">
 
+    <th:block th:replace="fragments/addons :: nav"/>
+
+    <div class="alert alert-secondary" role="alert">
+        <h2>Favorite Post...</h2>
+    </div>
+    <!--<p th:text="${post.user.email}"></p>-->
+
+    <div class="list-group">
+
+        <!--it makes it clickable go to the URL on click -->
+
+        <div class="list-group-item list-group-item-primary">
+            <h6>Title:</h6>
+            <div class="d-flex w-100 justify-content-between text-center">
+                <h5 th:text="${post.title}">TITLE</h5>
+            </div>
+        </div>
+        <h6>Body:</h6>
+        <p th:text="${post.body}" class="mb-1">BODY</p>
+        <br/>
+        <img width="300" height="300" th:each="image : ${post.postImages}" th:src="${image.path}" alt="img"/>
+    </div>
+
+        <div>
+            <!--it makes it clickable go to the URL on click and it adds the id number to the URL-->
+            <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-warning"><a th:href="'/posts/' + ${post.id} + '/edit'">EDIT</a></button>
+            <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-danger"><a th:href="'/posts/' + ${post.id} + '/delete'">DELETE</a></button>
+            <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-success"><a th:href="'/posts/' + ${post.id} + '/image'">ADD IMAGE</a></button>
+            <hr/>
+        </div>
+
+
+
+
+
+
+
+
+    <th:block th:replace="fragments/addons :: footer"/>
+</div>
 </body>
 </html>
+
+
+
+    <!--<p th:text="${post.title}"></p>-->
+    <!--<p th:text="${post.body}"></p>-->
+   <!---->
+    <!--<br/>-->
+    <!--<img width="300" height="300" th:each="image : ${post.postImages}" th:src="${image.path}" alt="img"/>-->

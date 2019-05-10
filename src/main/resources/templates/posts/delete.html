@@ -1,24 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <th:block th:replace="fragments/addons :: head('Delete Page')"/>
 </head>
 <body>
+<div class="container">
+<!--<input name="id" type="hidden" th:value="${post.id}"/>-->
 
-<h2>delete post</h2>
+    <th:block th:replace="fragments/addons :: nav"/>
 
-        <form method="post" th:action="@{'/posts/' + ${post.id} + '/delete'}">
+        <div class="alert alert-secondary" role="alert">
+            <h2>Delete The Post ...</h2>
+        </div>
 
-            <!--<input name="id" type="hidden" th:value="${post.id}"/>-->
-            <p>Title</p>
-            <p th:text="${post.title}"></p>
-            <p>Body</p>
-            <p th:text="${post.body}"></p>
+    <form method="post" th:action="@{'/posts/' + ${post.id} + '/delete'}">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Title:</span>
+            </div>
+            <input type="text" th:field="*{post.title}" class="form-control"/>
+        </div>
 
-            <button>Delete</button>
-        </form>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Post Body...</span>
+            </div>
+            <textarea th:text="${post.body}" class="form-control" aria-label="With textarea"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-outline-danger">DELETE</button>
+    </form>
 
 
+    <th:block th:replace="fragments/addons :: footer"/>
+</div>
 </body>
 </html>
+
+
