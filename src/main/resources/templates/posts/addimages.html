@@ -20,10 +20,11 @@
                 <label for="url">Please Paste The Url Here...</label>
                 <input name="url" type="url" id="url" class="form-control" placeholder="Url..."/>
             </div>
-            <button type="submit" class="btn btn-outline-success">ADD IMAGE</button>
+            <button type="submit" class="btn btn-outline-success">ADD MORE IMAGES</button>
         </fieldset>
     </form>
 
+    <button type="button" class="btn btn-outline-success"><a th:href="@{/posts}">I'M DONE!</a></button>
 
 <th:block th:replace="fragments/addons :: footer"/>
 </div>

@@ -28,7 +28,9 @@
         <h6>Body:</h6>
         <p th:text="${post.body}" class="mb-1">BODY</p>
         <br/>
+        <div class="container">
         <img width="300" height="300" th:each="image : ${post.postImages}" th:src="${image.path}" alt="img"/>
+        </div>
     </div>
 
         <div>
@@ -39,22 +41,9 @@
             <hr/>
         </div>
 
-
-
-
-
-
-
-
     <th:block th:replace="fragments/addons :: footer"/>
 </div>
 </body>
 </html>
 
 
-
-    <!--<p th:text="${post.title}"></p>-->
-    <!--<p th:text="${post.body}"></p>-->
-   <!---->
-    <!--<br/>-->
-    <!--<img width="300" height="300" th:each="image : ${post.postImages}" th:src="${image.path}" alt="img"/>-->

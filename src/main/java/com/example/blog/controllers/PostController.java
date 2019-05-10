@@ -97,7 +97,7 @@ public class PostController {
         newimage.setPath(url);
         newimage.setPost(postDao.findOne(id));
         imageDao.save(newimage);
-        return "redirect:/posts";
+        return "redirect:/posts/{id}/image";
     }
 
 

@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>posts</title>
 </head>
 <body>
 
@@ -22,6 +22,7 @@
             </div>
 
             <div>
+            <button class="btn btn-outline-success" type="button"><a th:href="@{/posts}">Home</a></button>
             <button class="btn btn-outline-success" type="button" sec:authorize="isAnonymous()"><a th:href="@{/login}">login</a></button>
             <button class="btn btn-outline-success" type="button" sec:authorize="isAnonymous()"><a th:href="@{/sign-up}">sign-up</a></button>
             <button class="btn btn-outline-success" type="button" sec:authorize="isAuthenticated()"><a href="/posts/create">create post</a></button>
